@@ -1,0 +1,10 @@
+* {
+    font-family: 'Playfair Display', serif;
+}
+
+
+
+.category {
+    width: 18%;
+    display: inline-block;
+}
