@@ -1,10 +1,33 @@
-* {
-    font-family: 'Playfair Display', serif;
+.logo {
+    margin-left: 75px;
 }
 
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: rgb(170, 238, 238);
+}
 
+nav {
+    border: 2px solid rgb(170, 238, 238);
+    margin-left: auto;
+    margin-right: 30px;
+    margin-bottom: 50px;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    height: 4vh;
+    width: 600px;
+    background-color: #00CCCC;
+    border-radius: 10px;    
+}
 
-.category {
-    width: 18%;
-    display: inline-block;
+.nav-link {
+    padding-left: 30px;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+.page-title {
+    text-align: center;
 }

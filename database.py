@@ -196,6 +196,8 @@ def reset_tag_list():
         return False
 
 if __name__ == '__main__':
-    _create_recipe_book()
-    _create_all_tags()
+    if reset_inventory():
+        print('inv reset')
+    else:
+        print('failed reset')
 

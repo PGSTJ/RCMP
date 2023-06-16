@@ -5,93 +5,180 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/inventory.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <title>Kitchen Inventory</title>
-</head>
+</head> 
 <body>
     <header>
-        <h1>Welcome to My Kitchen Inventory</h1>
-        <!-- Add any additional header elements or navigation here -->
+        <h1 class="logo">RCMP</h1>
     </header>
-
-    <main>
-        <section id="categories">
-            <h2>Categories</h2>
-            <ul>
-                <li><a href="#produce">Produce</a></li>
-                <li><a href="#dairy-eggs">Dairy and Eggs</a></li>
-                <li><a href="#meat-poultry">Meat and Poultry</a></li>
-                <li><a href="#seafood">Seafood</a></li>
-                <li><a href="#frozen-foods">Frozen Foods</a></li>
-                <li><a href="#bread-bakery">Bread and Bakery</a></li>
-                <li><a href="#pantry-staples">Pantry Staples</a></li>
-                <li><a href="#snacks">Snacks</a></li>
-                <li><a href="#beverages">Beverages</a></li>
-                <li><a href="#sauces-spices">Sauces/Spices</a></li>
-            </ul>
-        </section>
-
-        <div class="category-grid-top">
-            <div class="category">
-                <h2>Produce</h2>
-                <!-- Display produce items from the database -->
-            </div>
-        
-            <div class="category">
-                <h2>Dairy and Eggs</h2>
-                <!-- Display dairy and eggs items from the database -->
-            </div>
-        
-            <div class="category">
-                <h2>Meat and Poultry</h2>
-                <!-- Display meat and poultry items from the database -->
-            </div>
-            
-            <div class="category">
-                <h2>Seafood</h2>
-                <!-- Display meat and poultry items from the database -->
-            </div>
-            
-            <div class="category">
-                <h2>Frozen</h2>
-                <!-- Display meat and poultry items from the database -->
-            </div>
+    
+    <nav>
+        <div class="all-links">
+            <span class="nav-link">
+                <a href="#KI">Kitchen Inventory</a>
+            </span>
+            <span class="nav-link">
+                <a href="#Rn">Randomizers</a>
+            </span>
+            <span class="nav-link">
+                <a href="#RC">Recipes</a>
+            </span>
+            <span class="nav-link">
+                <a href="#Sp">Shopping</a>
+            </span>
+            <span class="nav-link">
+                <a href="#PF">Profile</a>
+            </span>
         </div>
-        
-        <div class="category-grid-bottom">
-            <div class="category">
-                <h2>Bread and Bakery</h2>
-                <!-- Display produce items from the database -->
+    </nav>
+    
+    
+    <main>
+        <fieldset class="inventory-display">
+            <legend class="page-title">
+                <h1>My Kitchen Inventory</h1>
+            </legend>
+            
+            <div class="category-grid">
+                <div class="category">
+                    <h2>Produce</h2>
+                    <ul class="inventory-items">
+                        {% for items in inv_data[produce] %}
+
+                        <li>{{  items  }}</li>
+
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="category">
+                    <h2>Dairy and Eggs</h2>
+                    <ul class="inventory-items">
+                        {% for items in inv_data[dairy/eggs] %}
+
+                        <li>{{  items  }}</li>
+
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="category">
+                    <h2>Meat and Poultry</h2>
+                    <ul class="inventory-items">
+                        {% for items in inv_data[meat/poultry] %}
+
+                        <li>{{  items  }}</li>
+
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="category">
+                    <h2>Seafood</h2>
+                    <ul class="inventory-items">
+                        {% for items in inv_data[seafood] %}
+
+                        <li>{{  items  }}</li>
+
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="category">
+                    <h2>Frozen</h2>
+                    <ul class="inventory-items">
+                        {% for items in inv_data[frozen] %}
+
+                        <li>{{  items  }}</li>
+
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="category-grid">
+                <div class="category">
+                    <h2>Bread and Bakery</h2>
+                    <ul class="inventory-items">
+                        {% for items in inv_data[bread/bakery] %}
+
+                        <li>{{  items  }}</li>
+
+                        {% endfor %}
+                    </ul>
             </div>
         
             <div class="category">
                 <h2>Pantry Staples</h2>
-                <!-- Display dairy and eggs items from the database -->
+                <ul class="inventory-items">
+                    {% for items in inv_data[pantry] %}
+
+                    <li>{{  items  }}</li>
+
+                    {% endfor %}
+                </ul>
             </div>
-        
+            
             <div class="category">
                 <h2>Spices and Sauces</h2>
-                <!-- Display meat and poultry items from the database -->
+                <ul class="inventory-items">
+                    {% for items in inv_data[sauces/spices] %}
+
+                    <li>{{  items  }}</li>
+
+                    {% endfor %}
+                </ul>
             </div>
             
             <div class="category">
                 <h2>Snacks</h2>
-                <!-- Display meat and poultry items from the database -->
+                <ul class="inventory-items">
+                    {% for items in inv_data[snacks] %}
+
+                    <li>{{  items  }}</li>
+
+                    {% endfor %}
+                </ul>
             </div>
             
             <div class="category">
                 <h2>Beverages</h2>
-                <!-- Display meat and poultry items from the database -->
+                <ul class="inventory-items">
+                    {% for items in inv_data[beverages] %}
+
+                    <li>{{  items  }}</li>
+
+                    {% endfor %}
+                </ul>
             </div>
-        </div>
+        </fieldset>
         
+        <div class="add-inventory">
+            <fieldset>
+                <legend>
+                    <h3>Add To Inventory</h3>
+                </legend>
+                
+                <!-- add in redirect page -->
+                <form action="/add_inventory" method="post">
+                    <select name="add-inv">
+                        <option value="Individual">Add by Section</option>
+                        <option value="CSV">Upload CSV</option>
+                    </select>
+
+                    <input type="submit" value="Go">
+                </form>
+            </fieldset>
+        </div>
 
     </main>
 
     <footer>
-        <p>&copy; 2023 My Kitchen Inventory</p>
+        <p>&copy; 2023 RCMP</p>
     </footer>
 </body>
 </html>

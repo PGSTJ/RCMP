@@ -1,0 +1,18 @@
+.category-grid {
+    width: 100%;
+}
+
+.category {
+    width: 18%;
+    display: inline-block;
+    vertical-align: text-top;
+}
+
+
+.inventory-items {
+    list-style-type: none;
+}
+
+.add-inventory {
+    display: inline-block;
+}
