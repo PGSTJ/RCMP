@@ -1,7 +1,7 @@
-from typing import List, Dict, Tuple, Optional
 import os
 import sqlite3 as sl
 import traceback
+from database import _next_id
 
 
 dbf = 'database.db'
@@ -44,10 +44,11 @@ def upload_to_db(master_dict:dict) -> bool:
 		for categories in master_dict:
 			cid = [_ for _ in curs.execute('SELECT id FROM KI_categories WHERE name=?', (categories,))][0][0]
 			
+			
 
 			for items in master_dict[categories]:
 				if not _item_exists(items):
-					id = _next_inv_id()
+					id = _next_id('KI_inventory')  # FIXME: Unable to upload inventory because cannot assign ID - not finding module with helper function
 					# TODO: Include SID once shopping functionality worked
 					curs.execute('INSERT INTO KI_inventory(id, item, CID, SID, stock_status) VALUES (?,?,?,?,?)', (id, items, cid, 0, True)) 
 					conn.commit()	
@@ -55,14 +56,6 @@ def upload_to_db(master_dict:dict) -> bool:
 	except Exception as e:
 		print(traceback.print_exc(e))
 		return False
-
-def _next_inv_id() -> int:
-	"""helper function for DB inv upload - creates next ID int based on current inventory size"""
-	all_items = [_ for _ in curs.execute('SELECT id FROM KI_inventory')]
-	if len(all_items) == 0:
-		return 1
-	else:
-		return len(all_items) + 1
 
 def _item_exists(item:str) -> bool:
 	"""helper function for DB inv upload - checks if item exists in table"""
@@ -93,6 +86,5 @@ def extract_inventory() -> dict:
 
 
 if __name__ == '__main__':
-	d = extract_inventory()
-
-	print(d)
+	if upload_to_db():
+		print('inv uploaded')

@@ -1,4 +1,5 @@
 import sqlite3 as sl
+import json
 import os
 
 """
@@ -54,6 +55,16 @@ def reset_address_book():
         return True
     except:
         return False
+    
+
+def _next_id(table:str) -> int:
+    """creates next ID int based on current table size"""
+    stmt = f'SELECT id FROM {table}'
+    all_items = [_ for _ in curs.execute(stmt)]
+    if len(all_items) == 0:
+        return 1
+    else:
+        return len(all_items) + 1
 
 #################################################################################################
 #####################    Kitchen Inventory    ###################################################
@@ -163,6 +174,8 @@ def reset_restaurant_list():
 #####################    Recipes    #############################################################
 #################################################################################################
 
+TAG_JSON_PATH = 'Recipes\\tags.json'
+
 def _create_recipe_book():
     """
     Create table of all recipes
@@ -184,7 +197,22 @@ def reset_recipe_list():
 
 def _create_all_tags():
     """Creates tables of all used tags"""
-    curs.execute('CREATE TABLE IF NOT EXISTS all_tags(id INT PRIMARY KEY, name VARCHAR(15))')
+    curs.execute('CREATE TABLE IF NOT EXISTS all_tags(id INT PRIMARY KEY, name VARCHAR(15), type VARCHAR(20))')
+
+    # import tags from json
+    with open(TAG_JSON_PATH) as fn:
+        tag_types = json.load(fn)
+
+    
+    try:
+        for types in tag_types:
+            for tags in tag_types[types]:
+                id = _next_id('all_tags')
+                curs.execute('INSERT INTO all_tags(id, name, type) VALUES (?,?,?)', (id, tags, types))
+                conn.commit()
+        return True
+    except Exception as e:
+        return False
 
 def reset_tag_list():
     """Clear tag list"""
@@ -196,8 +224,7 @@ def reset_tag_list():
         return False
 
 if __name__ == '__main__':
-    if reset_inventory():
-        print('inv reset')
-    else:
-        print('failed reset')
-
+   if _create_all_tags():
+       print('tags uploaded')
+   else:
+       print('fail')

@@ -1,0 +1,68 @@
+{
+    "Meal Type": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Brunch",
+        "Snacks",
+        "Desserts",
+        "Appetizers"
+    ],
+    "Cuisine": [
+        "Italian",
+        "Mexican",
+        "Chinese",
+        "Indian",
+        "Japanese",
+        "Vietnamese",
+        "American"
+    ],
+    "Dietary Restrictions": [
+        "Vegetarian",
+        "Vegan",
+        "Gluten-Free",
+        "Dairy-Free",
+        "Paleo",
+        "Keto",
+        "Pescatarian",
+        "Halal"
+    ],
+    "Ingredients": [
+        "Chicken",
+        "Beef",
+        "Seafood",
+        "Fish",
+        "Shellfish",
+        "Frozen",
+        "Vegetables",
+        "Grain"
+    ],
+    "Cooking Method": [
+        "Grilling",
+        "Baking",
+        "Frying",
+        "Slow Cooking",
+        "Pressure Cooking"
+    ],
+    "Occassion": [
+        "Christmas",
+        "Easter",
+        "Ramadan",
+        "Eid Mubarak",
+        "Passover",
+        "Party",
+        "Thanksgiving",
+        "Birthdays",
+        "Anniversaries"
+    ],
+    "Difficulty": [
+        "Beginner",
+        "Intermediate",
+        "Advanced"
+    ],
+    "Miscellaneous": [
+        "Quick and Easy",
+        "One-Pot",
+        "Meal Prep"
+    ]
+}
