@@ -2,6 +2,11 @@
     margin-left: 75px;
 }
 
+.logo a {
+    text-decoration: none;
+    color: black;
+}
+
 body {
     font-family: 'Playfair Display', serif;
     background-color: rgb(170, 238, 238);

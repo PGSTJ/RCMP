@@ -4,15 +4,15 @@ import Kitchen_Inventory.inventory as ki
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/home')
 def home():
-    return render_template('homepage.html')
+    return render_template('home.html')
 
 
-@app.route('/Kitchen-Inventory', methods=['POST'])
+@app.route('/Kitchen-Inventory', methods=['POST', 'GET'])
 def inventory():
     inv_data = ki.extract_inventory()
-    return render_template('K-Inventory.html', inv_data)
+    return render_template('K-Inventory.html', data=inv_data)
 
 @app.route('/add_inventory', methods=['POST'])
 def add_inventory():

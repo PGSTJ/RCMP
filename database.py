@@ -73,13 +73,13 @@ def _next_id(table:str) -> int:
 
 KI_CATEGORIES = [
     'produce',
-    'dairy/eggs',
-    'meat/poultry',
+    'dairy_eggs',
+    'meat_poultry',
     'seafood',
     'frozen',
-    'bread/bakery',
+    'bread_bakery',
     'pantry',
-    'sauces/spices',
+    'sauces_spices',
     'snacks',
     'beverages'
 ]
@@ -224,7 +224,7 @@ def reset_tag_list():
         return False
 
 if __name__ == '__main__':
-   if _create_all_tags():
-       print('tags uploaded')
-   else:
-       print('fail')
+   if reset_categories():
+       print('1/2')
+   if reset_inventory():
+       print('2/2')

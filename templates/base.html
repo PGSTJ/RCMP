@@ -8,17 +8,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+
+    {% block head %}
+    {% endblock %}
+
     <title>Homepage</title>
 </head>
 <body>
     <header>
-        <h1 class="logo">RCMP</h1>
+        <h1 class="logo">
+            <a href="/home">RCMP</a>
+        </h1>
     </header>
     
     <nav>
         <div class="all-links">
             <span class="nav-link">
-                <a href="#KI">Kitchen Inventory</a>
+                <a href="/Kitchen-Inventory">Kitchen Inventory</a>
             </span>
             <span class="nav-link">
                 <a href="#Rn">Randomizers</a>
@@ -36,17 +42,7 @@
     </nav>
 
     <main>
-        <div class="shopping">
-
-        </div>
-
-        <div class="current-meal">
-
-        </div>
-
-        <div class="calendar">
-
-        </div>
+        {% block content %}{% endblock %}
     </main>
 
     <footer>

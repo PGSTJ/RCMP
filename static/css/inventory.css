@@ -11,6 +11,7 @@
 
 .inventory-items {
     list-style-type: none;
+    font-weight: 500;
 }
 
 .add-inventory {
