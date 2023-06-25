@@ -79,6 +79,12 @@ def id_tracker(table:str, alphanum:str, swap:bool=False, number:tuple[int,bool]|
             ```
             id_counter('test_table', 'TT', swap=True)
             ```
+
+            Output:
+            ```
+            >>> 'TT1' instead of '1TT'
+            ```
+
         - number - tuple formatter containing a set number to include in each ID as the first index and option
         to replace the numerical counting with the set number 
 
@@ -217,7 +223,7 @@ def reset_restaurant_list():
 #####################    Recipes    #############################################################
 #################################################################################################
 
-TAG_JSON_PATH = 'Recipes\\tags.json'
+TAG_JSON_PATH = 'RecipesRestaurants\\tags.json'
 
 def _create_recipe_book():
     """

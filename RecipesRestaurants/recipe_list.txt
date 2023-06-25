@@ -1,0 +1,3 @@
+Egg Drop Soup,Shrimp Scampi,Spam Fried Rice,Beef Noodle Stir Fry,Steak Stir Fry,Honey Walnut Shrimp,Strawberry Bread,Eggroll,Crunchwrap
+Beef Noodle Soup,Chicken Parmesean,Chinese Sausage Fried Rice,Chicken Lo Mein,Eggplant Parmesean,Tonkatsu,Banana Bread,Springroll
+Wonton Soup,Lasagna,Shrimp Fried Rice,Beef Stroganoff,Stir Fry Baby Bok Choy,Salt and Pepper Shrimp,No Bake Cheesecake,Vietnamese Springroll
