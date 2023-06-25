@@ -46,7 +46,12 @@ curs = conn.cursor()
 
 
 def _create_address_book():
-    """Table holds all addresses for stores and restaurants"""
+    """
+    Table holds all addresses for stores and restaurants
+    - groupings include DB table types that utilize addresses. For here:
+        Rs - Restaurants
+        SS - Stores/Shopping
+    """
     curs.execute('CREATE TABLE IF NOT EXISTS address_book(id INT PRIMARY KEY, line VARCHAR(30), city VARCHAR(20), state VARCHAR(2), zip INT, grouping VARCHAR(2))')
 
 def reset_address_book():
@@ -235,7 +240,7 @@ def reset_recipe_list():
 
 def _create_all_tags():
     """Creates tables of all used tags"""
-    curs.execute('CREATE TABLE IF NOT EXISTS all_tags(id INT PRIMARY KEY, name VARCHAR(15), type VARCHAR(20), type_id VARCHAR(7))')
+    curs.execute('CREATE TABLE IF NOT EXISTS all_tags(id INT PRIMARY KEY, name VARCHAR(15), type_id VARCHAR(7), FOREIGN KEY (type_id) REFERENCES tag_types(id))')
 
     # import tags from json
     with open(TAG_JSON_PATH) as fn:
@@ -243,13 +248,14 @@ def _create_all_tags():
 
     
     try:
-        type_id = 0
+        # start at 1 to match tag_types table numbering
+        type_id = 1
         for types in tag_types:
             for tags in tag_types[types]['options']:
                 tid = id_tracker('all_tags', 'TID')
                 tid_TT = id_tracker('all_tags', tag_types[types]['type abbreviation'], number=(type_id, True))
 
-                curs.execute('INSERT INTO all_tags(id, name, type, type_id) VALUES (?,?,?,?)', (tid, tags, types, tid_TT))
+                curs.execute('INSERT INTO all_tags(id, name, type_id) VALUES (?,?,?)', (tid, tags, tid_TT))
                 conn.commit()
             type_id += 1
 
@@ -264,6 +270,35 @@ def reset_tag_list():
     try:
         curs.execute('DROP TABLE all_tags')
         if _create_all_tags():
+            return True
+        else:
+            return False
+    except:
+        return False
+    
+def tag_categories():
+    """Creates tables of tag categories with respective tag IDs"""
+    curs.execute('CREATE TABLE IF NOT EXISTS tag_types(id INT PRIMARY KEY, name VARCHAR(20), abbreviation VARCHAR(3))')
+
+    try:   
+        with open(TAG_JSON_PATH) as fn:
+            tag_types = json.load(fn)
+
+        for opts in tag_types:
+            id = id_tracker('tag_types', tag_types[opts]['type abbreviation'])
+            curs.execute('INSERT INTO tag_types(id, name, abbreviation) VALUES (?,?,?)', (id, opts, tag_types[opts]['type abbreviation']))
+        conn.commit()
+        return True
+    except Exception as e:
+        print('error creating tag_types table')
+        traceback.print_exc()
+        return False
+
+def reset_tag_categories():
+    """Clears and recreates tag_types table"""
+    try:
+        curs.execute('DROP TABLE tag_types')
+        if tag_categories():
             return True
         else:
             return False
