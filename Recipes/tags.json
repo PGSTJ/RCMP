@@ -1,68 +1,100 @@
 {
-    "Meal Type": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Brunch",
-        "Snacks",
-        "Desserts",
-        "Appetizers"
-    ],
-    "Cuisine": [
-        "Italian",
-        "Mexican",
-        "Chinese",
-        "Indian",
-        "Japanese",
-        "Vietnamese",
-        "American"
-    ],
-    "Dietary Restrictions": [
-        "Vegetarian",
-        "Vegan",
-        "Gluten-Free",
-        "Dairy-Free",
-        "Paleo",
-        "Keto",
-        "Pescatarian",
-        "Halal"
-    ],
-    "Ingredients": [
-        "Chicken",
-        "Beef",
-        "Seafood",
-        "Fish",
-        "Shellfish",
-        "Frozen",
-        "Vegetables",
-        "Grain"
-    ],
-    "Cooking Method": [
-        "Grilling",
-        "Baking",
-        "Frying",
-        "Slow Cooking",
-        "Pressure Cooking"
-    ],
-    "Occassion": [
-        "Christmas",
-        "Easter",
-        "Ramadan",
-        "Eid Mubarak",
-        "Passover",
-        "Party",
-        "Thanksgiving",
-        "Birthdays",
-        "Anniversaries"
-    ],
-    "Difficulty": [
-        "Beginner",
-        "Intermediate",
-        "Advanced"
-    ],
-    "Miscellaneous": [
-        "Quick and Easy",
-        "One-Pot",
-        "Meal Prep"
-    ]
+    "Meal Type": {
+        "options": [
+            "Breakfast",
+            "Lunch",
+            "Dinner",
+            "Brunch",
+            "Snacks",
+            "Desserts",
+            "Appetizers"
+        ],
+        "type abbreviation": "MT"
+    },
+
+    "Cuisine": {
+        "options": [
+            "Italian",
+            "Mexican",
+            "Chinese",
+            "Indian",
+            "Japanese",
+            "Vietnamese",
+            "American"
+        ],
+        "type abbreviation": "CUI"
+    },
+
+    "Dietary Restrictions": {
+        "options": [
+            "Vegetarian",
+            "Vegan",
+            "Gluten-Free",
+            "Dairy-Free",
+            "Paleo",
+            "Keto",
+            "Pescatarian",
+            "Halal"
+        ],
+        "type abbreviation": "DR"
+    },
+    
+    "Ingredients": {
+        "options": [
+            "Chicken",
+            "Beef",
+            "Seafood",
+            "Fish",
+            "Shellfish",
+            "Frozen",
+            "Vegetables",
+            "Grain"
+        ],
+        "type abbreviation": "ING"
+    },
+    
+    "Cooking Method": {
+        "options": [
+            "Grilling",
+            "Baking",
+            "Frying",
+            "Slow Cooking",
+            "Pressure Cooking"
+        ],
+        "type abbreviation": "CM"
+    },
+    
+    "Occassion": {
+        "options": [
+            "Christmas",
+            "Easter",
+            "Ramadan",
+            "Eid Mubarak",
+            "Passover",
+            "Party",
+            "Thanksgiving",
+            "Birthdays",
+            "Anniversaries"
+        ],
+        "type abbreviation": "OCC"
+    },
+    
+    "Difficulty": {
+        "options": [
+            "Beginner",
+            "Intermediate",
+            "Advanced"
+        ],
+        "type abbreviation": "DIFF"
+    },    
+    
+    "Miscellaneous": {
+        "options": [
+            "Quick and Easy",
+            "One-Pot",
+            "Meal Prep"
+        ],
+        "type abbreviation": "MISC"
+    }
+    
 }

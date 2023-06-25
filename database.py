@@ -1,6 +1,7 @@
 import sqlite3 as sl
 import json
 import os
+import traceback
 
 """
 This file holds all database information
@@ -18,6 +19,7 @@ Abbreviations:
     LID = Location ID
     AID = Address ID
     TID = Tag (recipes) ID
+        TT - tag type
 
 Pertinent order of creation:
     1. SS_locations
@@ -56,15 +58,51 @@ def reset_address_book():
     except:
         return False
     
+"""
+UTILITY TYPE FUNCTIONS - CONSIDERING A UTILITY CLASS PENDING AMOUNT OF FUNCTIONS
+"""
 
-def _next_id(table:str) -> int:
-    """creates next ID int based on current table size"""
-    stmt = f'SELECT id FROM {table}'
-    all_items = [_ for _ in curs.execute(stmt)]
-    if len(all_items) == 0:
-        return 1
+
+def id_tracker(table:str, alphanum:str, swap:bool=False, number:tuple[int,bool]|bool=False) -> str:
+    """
+    Creates next ID int based on current table size. Allows a custom string combination
+    of letters and numbers to "tag" the end of every ID.
+
+    Optional Modifiers
+        - swap - swaps the order of ID int and custom ID tag so ID tag is first and the ID int is second
+
+            ```
+            id_counter('test_table', 'TT', swap=True)
+            ```
+        - number - tuple formatter containing a set number to include in each ID as the first index and option
+        to replace the numerical counting with the set number 
+
+            ```
+            id_counter('test_table', 'TT', number=(0, True))
+            ```
+
+    """
+    # overrides counting and returns set number with custom tag qualifier
+    if number and number[1]:
+        count = str(number[0])
     else:
-        return len(all_items) + 1
+        stmt = f'SELECT id FROM {table}'
+        all_items = [_ for _ in curs.execute(stmt)]
+
+        if len(all_items) == 0:
+            count = str(1)
+        else:
+            count = str(len(all_items) + 1)
+
+    if swap:
+        final_id = alphanum + count
+    else:
+        final_id = count + alphanum
+        
+    return final_id
+        
+
+
 
 #################################################################################################
 #####################    Kitchen Inventory    ###################################################
@@ -197,7 +235,7 @@ def reset_recipe_list():
 
 def _create_all_tags():
     """Creates tables of all used tags"""
-    curs.execute('CREATE TABLE IF NOT EXISTS all_tags(id INT PRIMARY KEY, name VARCHAR(15), type VARCHAR(20))')
+    curs.execute('CREATE TABLE IF NOT EXISTS all_tags(id INT PRIMARY KEY, name VARCHAR(15), type VARCHAR(20), type_id VARCHAR(7))')
 
     # import tags from json
     with open(TAG_JSON_PATH) as fn:
@@ -205,26 +243,33 @@ def _create_all_tags():
 
     
     try:
+        type_id = 0
         for types in tag_types:
-            for tags in tag_types[types]:
-                id = _next_id('all_tags')
-                curs.execute('INSERT INTO all_tags(id, name, type) VALUES (?,?,?)', (id, tags, types))
+            for tags in tag_types[types]['options']:
+                tid = id_tracker('all_tags', 'TID')
+                tid_TT = id_tracker('all_tags', tag_types[types]['type abbreviation'], number=(type_id, True))
+
+                curs.execute('INSERT INTO all_tags(id, name, type, type_id) VALUES (?,?,?,?)', (tid, tags, types, tid_TT))
                 conn.commit()
+            type_id += 1
+
         return True
     except Exception as e:
+        traceback.print_exc()
+        print('error recreating all_tags table')
         return False
 
 def reset_tag_list():
     """Clear tag list"""
     try:
         curs.execute('DROP TABLE all_tags')
-        _create_all_tags()
-        return True
+        if _create_all_tags():
+            return True
+        else:
+            return False
     except:
         return False
 
 if __name__ == '__main__':
-   if reset_categories():
-       print('1/2')
-   if reset_inventory():
-       print('2/2')
+    if reset_tag_list():
+        print('done')
