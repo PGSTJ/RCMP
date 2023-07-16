@@ -20,6 +20,8 @@ Abbreviations:
     AID = Address ID
     TID = Tag (recipes) ID
         TT - tag type
+    RID = Recipe ID
+    EID - Entry ID
 
 Pertinent order of creation:
     1. SS_locations
@@ -233,16 +235,39 @@ def _create_recipe_book():
     Ingredients are previously formatted list
     Tags are previously formatted list of FKs
     """
-    curs.execute('CREATE TABLE IF NOT EXISTS all_recipes(id INT PRIMARY KEY, name VARCHAR(20), prep_time INT, cook_time INT, ingredients TEXT, instructions TEXT, tags TEXT)')
+    curs.execute('CREATE TABLE IF NOT EXISTS all_recipes(id VARCHAR(4) PRIMARY KEY, name VARCHAR(20), prep_time INT, cook_time INT, tags TEXT, available BOOL)')
 
-def reset_recipe_list():
+def reset_recipe_book():
     "Clears recipe book"
     try:
-        curs.execute('DELETE TABLE all_recipes')
+        curs.execute('DROP TABLE all_recipes')
         _create_recipe_book()
+        return True
+    except Exception as e:
+        traceback.print_exc()
+        return False
+    
+def ingredients():
+    """table containing all ingredients - linked to recipe by RID"""
+    curs.execute('CREATE TABLE IF NOT EXISTS ingredients(id VARCHAR(10) PRIMARY KEY, rid VARCHAR(4), amount VARCHAR(3), unit VARCHAR(15), name VARCHAR(20), FOREIGN KEY (rid) REFERENCES all_recipes(id))')
+
+def instructions():
+    """table containing all instructions - linked to recipe by RID"""
+    curs.execute('CREATE TABLE IF NOT EXISTS instructions(id VARCHAR(10) PRIMARY KEY, rid VARCHAR(4), instruction TEXT, FOREIGN KEY (rid) REFERENCES all_recipes(id))')
+
+def _reset_ingredients_instructions() -> bool:
+    try:    
+        curs.execute('DROP TABLE ingredients')
+        curs.execute('DROP TABLE instructions')
+
+        ingredients()
+        instructions()
         return True
     except:
         return False
+
+
+
 
 def _create_all_tags():
     """Creates tables of all used tags"""
@@ -312,5 +337,5 @@ def reset_tag_categories():
         return False
 
 if __name__ == '__main__':
-    if reset_tag_list():
+    if reset_recipe_book():
         print('done')
