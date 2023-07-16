@@ -87,8 +87,29 @@ def extract_inventory() -> dict:
 
 	return all_data
 
+def setStockStatus(status:bool, item: str=None, itemID:int=None):
+	"""Sets stock status of an item; can update by ID or item name"""
+	try:
+		# if not item and itemID:
+		# 	print('Must include item name or ID.')
+		# 	return False
+		if itemID:
+			curs.execute('UPDATE KI_inventory SET stock_status=? WHERE id=?', (status, itemID))
+		elif item:
+			curs.execute('UPDATE KI_inventory SET stock_status=? WHERE item=?', (status, item))
+		conn.commit()
+		print('done')
+		return True
+	except Exception as e:
+		traceback.print_exc()
+		return False
+
 
 if __name__ == '__main__':
-	d = extract_inventory()
+	d = [_ for _ in range(1, 30, 3)]
 
-	print(d)
+
+	for num in d:
+		print(num)
+		setStockStatus(False, itemID=num)
+

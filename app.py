@@ -4,6 +4,11 @@ import Kitchen_Inventory.inventory as ki
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return redirect(url_for('home'))
+    
+
 @app.route('/home')
 def home():
     return render_template('home.html')
