@@ -219,6 +219,22 @@ def reset_restaurant_list():
         return True
     except:
         return False
+    
+def favorites():
+    """Holds favorite resturant/recipes"""
+    curs.execute('CREATE TABLE IF NOT EXISTS favorites(id INT PRIMARY KEY, rid VARCHAR(4), rsid VARCHAR(5), FOREIGN KEY (rid) REFERENCES all_recipes(id), FOREIGN KEY (rsid) REFERENCES Rs_all_restaurants(id))')
+    return True
+
+def add_remove_favorite(add:bool=None, remove:bool=None, fid:int=None, rid:str=None, rsid:str=None):
+    """adds or removes from favorites table"""
+    if add:
+        id = id_tracker('favorites', 'F', swap=True)
+        curs.execute('INSERT INTO favorites(id, rid, rsid) VALUES (?,?,?)', (id, rid, rsid))
+        return True
+    elif remove:
+        curs.execute('DELTE FROM favorites WHERE id=?', (fid,))
+
+
 
 
 #################################################################################################
@@ -253,7 +269,7 @@ def ingredients():
 
 def instructions():
     """table containing all instructions - linked to recipe by RID"""
-    curs.execute('CREATE TABLE IF NOT EXISTS instructions(id VARCHAR(10) PRIMARY KEY, rid VARCHAR(4), instruction TEXT, FOREIGN KEY (rid) REFERENCES all_recipes(id))')
+    curs.execute('CREATE TABLE IF NOT EXISTS instructions(id VARCHAR(10) PRIMARY KEY, rid VARCHAR(4), step INT, instruction TEXT, FOREIGN KEY (rid) REFERENCES all_recipes(id))')
 
 def _reset_ingredients_instructions() -> bool:
     try:    
@@ -264,6 +280,16 @@ def _reset_ingredients_instructions() -> bool:
         instructions()
         return True
     except:
+        return False
+    
+def set_availability(recipe_id:str, availability:bool) -> bool:
+    """sets recipe availability for recipe randomizer"""
+    try:
+        curs.execute('UPDATE all_recipes SET available=? WHERE id=?', (availability, recipe_id))
+        conn.commit()
+        return True
+    except Exception as e:
+        traceback.print_exc()
         return False
 
 
@@ -337,5 +363,4 @@ def reset_tag_categories():
         return False
 
 if __name__ == '__main__':
-    if reset_recipe_book():
-        print('done')
+    favorites()

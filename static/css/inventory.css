@@ -1,15 +1,29 @@
+.inventory-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 .category-grid {
+    display: flex;
     width: 100%;
+    justify-content: space-between;
+    align-content: center;
 }
 
 .category {
-    width: 18%;
-    display: inline-block;
     vertical-align: text-top;
+    border: 1px solid black;
+}
+
+.category-name {
+    text-align: center;
 }
 
 
 .inventory-items {
+    text-align: left;
     list-style-type: none;
     font-weight: 500;
 }

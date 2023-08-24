@@ -1,0 +1,32 @@
+<!-- basic grid layout for recipe display -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+            }
+
+            .recipe-card {
+            background-color: #f1f1f1;
+            padding: 20px;
+            /* Add more styling as desired */
+            }
+
+    </style>
+</head>
+<body>
+    <div class="recipe-grid">
+        <div class="recipe-card">Recipe 1</div>
+        <div class="recipe-card">Recipe 2</div>
+        <div class="recipe-card">Recipe 3</div>
+        <!-- Add more recipe cards here -->
+      </div>      
+</body>
+</html>
